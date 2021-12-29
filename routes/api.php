@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ApiAuthController;
+use App\Http\Controllers\SetsController;
+use App\Http\Controllers\WorkoutsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +36,25 @@ Route::group([
         Route::post('logout', [ApiAuthController::class, 'logout'])
             ->name('auth.logout');
 
+        Route::get('workouts', [WorkoutsController::class, 'index'])
+            ->name('workouts.index');
+        Route::get('workouts/{workout}', [WorkoutsController::class, 'show'])
+            ->name('workouts.show');
+        Route::post('workouts', [WorkoutsController::class, 'store'])
+            ->name('workouts.store');
+        Route::match([Request::METHOD_PUT, Request::METHOD_PATCH], 'workouts/{workout}', [WorkoutsController::class, 'update'])
+//            ->middleware('can:update,workout')
+            ->name('workouts.update');
+        Route::delete('workouts/{workout}', [WorkoutsController::class, 'destroy'])
+//            ->middleware('can:delete,workout')
+            ->name('workouts.delete');
+
+        Route::get('workouts/{workout}/sets', [SetsController::class, 'index'])
+            ->name('sets.index');
+        Route::post('workouts/{workout}/sets', [SetsController::class, 'store'])
+            ->name('sets.store');
+        Route::put('workouts/sets/{set}', [SetsController::class, 'update'])
+            ->name('sets.update');
 
     });
 });
