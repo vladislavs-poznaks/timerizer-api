@@ -7,6 +7,7 @@ use App\Http\Resources\SetCollection;
 use App\Http\Resources\SetResource;
 use App\Models\Set;
 use App\Models\Workout;
+use Illuminate\Http\Response;
 
 class SetsController extends Controller
 {
@@ -25,5 +26,16 @@ class SetsController extends Controller
         $set = $workout->sets()->create($request->validated());
 
         return response()->json(new SetResource($set));
+    }
+
+    // TODO For updating need to think about type related variables
+
+    public function destroy(Set $set)
+    {
+        $set->delete();
+
+        return response()->json([
+            "message" => "Successfully deleted!"
+        ], Response::HTTP_OK);
     }
 }

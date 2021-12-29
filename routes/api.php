@@ -51,10 +51,14 @@ Route::group([
 
         Route::get('workouts/{workout}/sets', [SetsController::class, 'index'])
             ->name('sets.index');
+        Route::get('workouts/sets/{set}', [SetsController::class, 'show'])
+            ->name('sets.show');
         Route::post('workouts/{workout}/sets', [SetsController::class, 'store'])
             ->name('sets.store');
-        Route::put('workouts/sets/{set}', [SetsController::class, 'update'])
+        Route::match([Request::METHOD_PUT, Request::METHOD_PATCH],'workouts/sets/{set}', [SetsController::class, 'update'])
             ->name('sets.update');
+        Route::delete('workouts/sets/{set}', [SetsController::class, 'destroy'])
+            ->name('sets.destroy');
 
     });
 });
