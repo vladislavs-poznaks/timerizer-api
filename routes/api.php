@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ApiAuthController;
+use App\Http\Controllers\ExercisesController;
+use App\Http\Controllers\ExerciseTypeController;
 use App\Http\Controllers\SetsController;
 use App\Http\Controllers\WorkoutsController;
 use Illuminate\Http\Request;
@@ -60,5 +62,19 @@ Route::group([
         Route::delete('workouts/sets/{set}', [SetsController::class, 'destroy'])
             ->name('sets.destroy');
 
+        Route::get('exercise-types', [ExerciseTypeController::class, 'index'])
+            ->name('exercise-types.index');
+        Route::get('exercise-types/{exerciseType}', [ExerciseTypeController::class, 'show'])
+            ->name('exercise-types.show');
+        Route::post('exercise-types', [ExerciseTypeController::class, 'store'])
+            ->name('exercise-types.store');
+
+        Route::delete('exercise-types/{exerciseType}', [ExerciseTypeController::class, 'destroy'])
+            ->name('exercise-types.destroy');
+
+        Route::get('workouts/sets/{set}/exercises', [ExercisesController::class, 'index'])
+            ->name('exercises.index');
+        Route::post('workouts/sets/{set}/exercises', [ExercisesController::class, 'store'])
+            ->name('exercises.store');
     });
 });

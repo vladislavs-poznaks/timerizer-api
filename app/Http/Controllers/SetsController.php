@@ -25,7 +25,7 @@ class SetsController extends Controller
     {
         $set = $workout->sets()->create($request->validated());
 
-        return response()->json(new SetResource($set));
+        return response()->json(new SetResource($set), Response::HTTP_CREATED);
     }
 
     // TODO For updating need to think about type related variables

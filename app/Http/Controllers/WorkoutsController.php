@@ -20,12 +20,13 @@ class WorkoutsController extends Controller
 {
     public function index()
     {
-        return response()->json(new WorkoutCollection(auth()->user()->workouts()->paginate(10)->withQueryString()), Response::HTTP_OK);
+        return response()->json(new WorkoutCollection(auth()->user()->workouts()->paginate(10)->withQueryString()));
     }
 
     public function show(Workout $workout)
     {
-        return response()->json(new WorkoutResource($workout), Response::HTTP_OK);
+        return response()->json(new WorkoutResource($workout));
+
 //        $setTypes = new DefinitionCollection(Definition::inDictionary(SetDictionaries::TYPE)->orderBy('value')->get());
 //
 //        $filters = request()->only('type');
@@ -48,7 +49,7 @@ class WorkoutsController extends Controller
     {
         $workout->update($request->validated());
 
-        return response()->json(new WorkoutResource($workout), Response::HTTP_OK);
+        return response()->json(new WorkoutResource($workout));
     }
 
     public function destroy(Workout $workout)
@@ -57,6 +58,6 @@ class WorkoutsController extends Controller
 
         return response()->json([
             "message" => "Successfully deleted!"
-        ], Response::HTTP_OK);
+        ]);
     }
 }
